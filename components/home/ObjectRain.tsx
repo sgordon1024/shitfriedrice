@@ -1,13 +1,11 @@
 /**
- * ObjectRain — Continuously raining objects with real bounce physics
+ * ObjectRain — Endless raining objects with bounce physics + mouse interaction
  *
- * Objects fall from above with gravity, bounce off the bottom with
- * varying weight/bounciness, and pile up. They never stop spawning.
- * Uses requestAnimationFrame for smooth 60fps physics.
+ * Objects fall, bounce, pile up on each other (not just the floor),
+ * and never stop spawning. The mouse pushes objects away like a force field.
+ * Objects slowly pile to the top if you wait long enough.
  *
- * Each object is a real <img> element (not canvas) so they render
- * crisply at any resolution. Physics runs in a ref, DOM updates
- * happen via direct style manipulation (no React re-renders).
+ * Also handles the random cursor — every hover gets a different decor image.
  */
 
 "use client";
@@ -15,7 +13,6 @@
 import { useRef, useEffect, useCallback } from "react";
 import { asset } from "@/lib/prefix";
 
-// All available decor images
 const DECOR_SRCS = [
   "gem1.png", "gem2.png", "gem3.png",
   "shell1.png", "shell2.png", "shell3.png",
@@ -30,11 +27,8 @@ const DECOR_SRCS = [
   "heart1.png", "heart2.png",
   "gold1.png", "gold2.png",
   "crystal1.png", "crystal2.png",
-  "moth1.png",
-  "cube1.png",
-  "key1.png",
-  "cloud1.png",
-  "eyes1.png",
+  "moth1.png", "cube1.png", "key1.png",
+  "cloud1.png", "eyes1.png",
   "purple1.png", "purple2.png",
   "pink1.png", "pink2.png",
   "orange1.png", "orange2.png",
@@ -45,166 +39,273 @@ const DECOR_SRCS = [
   "green1.png", "green2.png",
 ];
 
-interface PhysicsObject {
+// Shuffled copy for cursor cycling — no repeats until all used
+let cursorPool: string[] = [];
+function getNextCursorSrc(): string {
+  if (cursorPool.length === 0) {
+    cursorPool = [...DECOR_SRCS].sort(() => Math.random() - 0.5);
+  }
+  return cursorPool.pop()!;
+}
+
+interface PhysObj {
   el: HTMLImageElement;
   x: number;
   y: number;
   vx: number;
   vy: number;
-  rotation: number;
-  vr: number;      // rotational velocity
+  rot: number;
+  vr: number;
   size: number;
-  mass: number;     // affects gravity and bounciness
-  bounciness: number;
-  friction: number;
-  settled: boolean; // true when object has stopped bouncing
-  settledFrames: number;
+  mass: number;
+  bounce: number;
+  settled: boolean;
+  settleCount: number;
 }
 
-// Physics constants
-const GRAVITY = 0.35;
-const SPAWN_INTERVAL_MS = 250; // new object every 250ms
-const MAX_OBJECTS = 200;       // cap so we don't destroy the browser
+const GRAVITY = 0.28;
+const MOUSE_RADIUS = 120;
+const MOUSE_FORCE = 8;
+const SPAWN_MS = 600;        // slower spawn so pile builds gradually
+const PILE_CHECK_EVERY = 30; // frames between pile-height checks
 
 export default function ObjectRain() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const objectsRef = useRef<PhysicsObject[]>([]);
+  const objsRef = useRef<PhysObj[]>([]);
   const rafRef = useRef<number>(0);
   const lastSpawnRef = useRef<number>(0);
-  const floorYRef = useRef<number>(0);
+  const mouseRef = useRef({ x: -999, y: -999 });
+  const frameRef = useRef(0);
+  // Track settled heights in columns for piling
+  const columnsRef = useRef<number[]>([]);
+  const NUM_COLS = 40;
+
+  // Reset column heights
+  const resetColumns = useCallback((floorY: number) => {
+    columnsRef.current = new Array(NUM_COLS).fill(floorY);
+  }, []);
 
   const spawnObject = useCallback(() => {
-    const container = containerRef.current;
-    if (!container || objectsRef.current.length >= MAX_OBJECTS) return;
+    const c = containerRef.current;
+    if (!c) return;
 
-    const containerW = container.offsetWidth;
-    floorYRef.current = container.offsetHeight;
-
-    // Random decor image
+    const cW = c.offsetWidth;
     const srcName = DECOR_SRCS[Math.floor(Math.random() * DECOR_SRCS.length)];
     const src = asset(`/images/decor/${srcName}`);
 
-    // Random properties — varying weight and speed
-    const size = 35 + Math.random() * 50;
-    const mass = 0.5 + Math.random() * 2; // light to heavy
-    const bounciness = 0.3 + Math.random() * 0.5; // 0.3 to 0.8
+    const size = 30 + Math.random() * 45;
+    const mass = 0.4 + Math.random() * 2.2;
+    const bounce = 0.25 + Math.random() * 0.55;
 
-    // Create the img element
     const el = document.createElement("img");
     el.src = src;
     el.alt = "";
     el.draggable = false;
     el.style.cssText = `
-      position: absolute;
-      width: ${size}px;
-      height: ${size}px;
-      object-fit: contain;
-      pointer-events: none;
-      will-change: transform;
-      opacity: 0.75;
-      filter: saturate(1.3) brightness(1.1);
+      position:absolute;
+      width:${size}px;
+      height:${size}px;
+      object-fit:contain;
+      pointer-events:none;
+      will-change:transform;
+      opacity:0.85;
+      filter:saturate(1.4) brightness(1.15);
+      top:0;left:0;
     `;
-    container.appendChild(el);
+    c.appendChild(el);
 
-    const obj: PhysicsObject = {
+    objsRef.current.push({
       el,
-      x: Math.random() * (containerW - size),
-      y: -size - Math.random() * 200, // start above the viewport
-      vx: -1 + Math.random() * 2,     // slight horizontal drift
-      vy: 1 + mass * 1.5,             // heavier = falls faster initially
-      rotation: Math.random() * 360,
-      vr: -4 + Math.random() * 8,     // spin speed
+      x: Math.random() * (cW - size),
+      y: -size - Math.random() * 300,
+      vx: -1.5 + Math.random() * 3,
+      vy: 0.5 + mass * 1.2,
+      rot: Math.random() * 360,
+      vr: -5 + Math.random() * 10,
       size,
       mass,
-      bounciness,
-      friction: 0.97,
+      bounce,
       settled: false,
-      settledFrames: 0,
-    };
-
-    objectsRef.current.push(obj);
+      settleCount: 0,
+    });
   }, []);
 
-  const tick = useCallback((timestamp: number) => {
-    const container = containerRef.current;
-    if (!container) {
-      rafRef.current = requestAnimationFrame(tick);
-      return;
-    }
+  const tick = useCallback((ts: number) => {
+    const c = containerRef.current;
+    if (!c) { rafRef.current = requestAnimationFrame(tick); return; }
 
-    const floorY = container.offsetHeight;
-    const containerW = container.offsetWidth;
-    floorYRef.current = floorY;
+    const floorY = c.offsetHeight;
+    const cW = c.offsetWidth;
+    frameRef.current++;
 
-    // Spawn new objects on interval
-    if (timestamp - lastSpawnRef.current > SPAWN_INTERVAL_MS) {
+    // Initialize columns if needed
+    if (columnsRef.current.length === 0) resetColumns(floorY);
+
+    // Spawn
+    if (ts - lastSpawnRef.current > SPAWN_MS) {
       spawnObject();
-      lastSpawnRef.current = timestamp;
+      lastSpawnRef.current = ts;
     }
 
-    const objects = objectsRef.current;
+    // Rebuild pile height map from settled objects periodically
+    if (frameRef.current % PILE_CHECK_EVERY === 0) {
+      const cols = new Array(NUM_COLS).fill(floorY);
+      for (const o of objsRef.current) {
+        if (!o.settled) continue;
+        const colStart = Math.floor((o.x / cW) * NUM_COLS);
+        const colEnd = Math.min(NUM_COLS - 1, Math.floor(((o.x + o.size) / cW) * NUM_COLS));
+        for (let ci = colStart; ci <= colEnd; ci++) {
+          if (ci >= 0 && ci < NUM_COLS) {
+            cols[ci] = Math.min(cols[ci], o.y);
+          }
+        }
+      }
+      columnsRef.current = cols;
+    }
 
-    for (let i = 0; i < objects.length; i++) {
-      const obj = objects[i];
-      if (obj.settled) continue;
+    const mx = mouseRef.current.x;
+    const my = mouseRef.current.y;
+    const objs = objsRef.current;
 
-      // Apply gravity (heavier objects accelerate slightly faster)
-      obj.vy += GRAVITY * (0.8 + obj.mass * 0.2);
+    for (let i = 0; i < objs.length; i++) {
+      const o = objs[i];
+
+      // Mouse interaction — push settled AND active objects
+      const ocx = o.x + o.size / 2;
+      const ocy = o.y + o.size / 2;
+      const dx = ocx - mx;
+      const dy = ocy - my;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < MOUSE_RADIUS && dist > 1) {
+        const force = (MOUSE_FORCE * (1 - dist / MOUSE_RADIUS)) / o.mass;
+        const nx = dx / dist;
+        const ny = dy / dist;
+        o.vx += nx * force;
+        o.vy += ny * force;
+        o.vr += (Math.random() - 0.5) * force * 3;
+        if (o.settled) {
+          o.settled = false;
+          o.settleCount = 0;
+        }
+      }
+
+      if (o.settled) continue;
+
+      // Gravity
+      o.vy += GRAVITY * (0.7 + o.mass * 0.25);
 
       // Apply velocity
-      obj.x += obj.vx;
-      obj.y += obj.vy;
-      obj.rotation += obj.vr;
+      o.x += o.vx;
+      o.y += o.vy;
+      o.rot += o.vr;
 
-      // Floor collision — BOUNCE
-      const groundLevel = floorY - obj.size;
-      if (obj.y >= groundLevel) {
-        obj.y = groundLevel;
-        // Bounce: reverse velocity, reduce by bounciness factor
-        obj.vy = -Math.abs(obj.vy) * obj.bounciness;
-        obj.vx *= 0.8; // friction on bounce
-        obj.vr *= 0.7; // slow rotation on bounce
+      // Find the ground level for this object (pile surface)
+      const colIdx = Math.floor(((o.x + o.size / 2) / cW) * NUM_COLS);
+      const clampedCol = Math.max(0, Math.min(NUM_COLS - 1, colIdx));
+      const groundHere = columnsRef.current[clampedCol] - o.size;
+      const effectiveGround = Math.min(floorY - o.size, groundHere);
 
-        // If bounce is tiny, settle
-        if (Math.abs(obj.vy) < 1.5) {
-          obj.vy = 0;
-          obj.vx = 0;
-          obj.vr = 0;
-          obj.settledFrames++;
-          if (obj.settledFrames > 10) {
-            obj.settled = true;
+      // Floor/pile collision
+      if (o.y >= effectiveGround) {
+        o.y = effectiveGround;
+        o.vy = -Math.abs(o.vy) * o.bounce;
+        o.vx *= 0.75;
+        o.vr *= 0.6;
+
+        if (Math.abs(o.vy) < 1.2) {
+          o.vy = 0;
+          o.vx *= 0.5;
+          o.vr = 0;
+          o.settleCount++;
+          if (o.settleCount > 8) {
+            o.settled = true;
           }
         }
       }
 
-      // Wall collisions — gentle bounce off sides
-      if (obj.x <= 0) {
-        obj.x = 0;
-        obj.vx = Math.abs(obj.vx) * 0.5;
-      } else if (obj.x >= containerW - obj.size) {
-        obj.x = containerW - obj.size;
-        obj.vx = -Math.abs(obj.vx) * 0.5;
-      }
+      // Walls
+      if (o.x <= 0) { o.x = 0; o.vx = Math.abs(o.vx) * 0.4; }
+      else if (o.x >= cW - o.size) { o.x = cW - o.size; o.vx = -Math.abs(o.vx) * 0.4; }
 
-      // Horizontal friction while in air
-      obj.vx *= obj.friction;
+      // Air friction
+      o.vx *= 0.985;
 
-      // Update DOM element position
-      obj.el.style.transform = `translate(${obj.x}px, ${obj.y}px) rotate(${obj.rotation}deg)`;
+      // Update DOM
+      o.el.style.transform = `translate(${o.x}px,${o.y}px) rotate(${o.rot}deg)`;
     }
 
     rafRef.current = requestAnimationFrame(tick);
-  }, [spawnObject]);
+  }, [spawnObject, resetColumns]);
 
-  // Start the physics loop
+  // Mouse tracking
   useEffect(() => {
-    rafRef.current = requestAnimationFrame(tick);
+    const c = containerRef.current;
+    if (!c) return;
+
+    const handleMove = (e: MouseEvent) => {
+      const rect = c.getBoundingClientRect();
+      mouseRef.current.x = e.clientX - rect.left;
+      mouseRef.current.y = e.clientY - rect.top;
+    };
+    const handleLeave = () => {
+      mouseRef.current.x = -999;
+      mouseRef.current.y = -999;
+    };
+
+    // Listen on the parent section (which has pointer-events)
+    const section = c.parentElement;
+    if (section) {
+      section.addEventListener("mousemove", handleMove);
+      section.addEventListener("mouseleave", handleLeave);
+    }
+    return () => {
+      if (section) {
+        section.removeEventListener("mousemove", handleMove);
+        section.removeEventListener("mouseleave", handleLeave);
+      }
+    };
+  }, []);
+
+  // Random cursor on hover — changes every time you hover ANY interactive element
+  useEffect(() => {
+    const handleHover = () => {
+      const src = asset(`/images/decor/${getNextCursorSrc()}`);
+      document.documentElement.style.cursor = `url("${src}") 12 12, auto`;
+    };
+
+    // Attach to all interactive elements
+    const attachCursorListeners = () => {
+      const els = document.querySelectorAll("a, button, [role='button'], input, select, textarea");
+      els.forEach((el) => {
+        el.addEventListener("mouseenter", handleHover);
+      });
+      return els;
+    };
+
+    // Initial attach + re-attach on DOM changes (for dynamically added elements)
+    let els = attachCursorListeners();
+    const observer = new MutationObserver(() => {
+      // Detach old
+      els.forEach((el) => el.removeEventListener("mouseenter", handleHover));
+      // Re-attach
+      els = attachCursorListeners();
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
 
     return () => {
+      els.forEach((el) => el.removeEventListener("mouseenter", handleHover));
+      observer.disconnect();
+      document.documentElement.style.cursor = "";
+    };
+  }, []);
+
+  // Start physics
+  useEffect(() => {
+    rafRef.current = requestAnimationFrame(tick);
+    return () => {
       cancelAnimationFrame(rafRef.current);
-      // Cleanup DOM elements
-      objectsRef.current.forEach((obj) => obj.el.remove());
-      objectsRef.current = [];
+      objsRef.current.forEach((o) => o.el.remove());
+      objsRef.current = [];
     };
   }, [tick]);
 
