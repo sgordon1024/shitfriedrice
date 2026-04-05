@@ -165,6 +165,13 @@ export default function Hero() {
     }
   }, [fontWeight, hasHover]);
 
+  // Decor images fade in after the text has appeared
+  const [decorReady, setDecorReady] = useState(false);
+  useEffect(() => {
+    const timer = setTimeout(() => setDecorReady(true), 800);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <section
       ref={ref}
@@ -172,16 +179,20 @@ export default function Hero() {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Decorative parallax objects — deepest layer, hidden on mobile */}
-      <div className="hidden md:block" aria-hidden="true">
+      {/* Decorative parallax objects — fade in after text loads */}
+      <motion.div
+        className="hidden md:block"
+        aria-hidden="true"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: decorReady ? 1 : 0 }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
+      >
         {decorObjects.map((obj, i) => (
           <DecorObject key={`decor-${i}`} obj={obj} scrollYProgress={scrollYProgress} />
         ))}
-      </div>
+      </motion.div>
 
-      {/* Product images removed — decor objects only now */}
-
-      {/* Main hero content — top layer, parallaxes up on scroll */}
+      {/* Main hero content — shows FIRST, no delay on headline */}
       <motion.div
         className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center"
         style={{ y: headlineY, opacity: headlineOpacity }}
@@ -189,9 +200,9 @@ export default function Hero() {
         <motion.h1
           ref={headlineRef}
           className="font-[family-name:var(--font-big-shoulders)] text-5xl sm:text-7xl md:text-8xl lg:text-9xl text-sfr-cream leading-[0.9] mb-6 uppercase select-none"
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.4 }}
           style={{ fontWeight: springWeight }}
         >
           <RainbowText text="Art made from stuff." />
@@ -199,9 +210,9 @@ export default function Hero() {
 
         <motion.p
           className="font-[family-name:var(--font-syne)] text-sfr-cream/60 text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.4, delay: 0.15 }}
         >
           Yes, those were our tacos at the Bad Bunny Super Bowl halftime show.
           No, you can&apos;t eat them.
@@ -209,9 +220,9 @@ export default function Hero() {
 
         <motion.div
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.4, delay: 0.3 }}
         >
           <Button href="/shop" variant="primary">
             Shop the weird stuff
@@ -359,6 +370,7 @@ function DecorObject({
           height={80}
           sizes="80px"
           className="object-contain"
+          loading="lazy"
         />
       </div>
     </motion.div>
