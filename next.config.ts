@@ -9,15 +9,18 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Static export for GitHub Pages
+  output: "export",
+
   // Allow images from these domains (Sanity CDN + placeholder images)
   images: {
+    unoptimized: true, // Required for static export
     remotePatterns: [
       {
         protocol: "https",
         hostname: "cdn.sanity.io",
       },
       {
-        // Placeholder images — remove this once you have real product photos
         protocol: "https",
         hostname: "picsum.photos",
       },

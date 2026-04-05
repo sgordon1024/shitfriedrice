@@ -1,17 +1,21 @@
 /**
- * Sanity Studio Page
- *
- * This embeds the full Sanity Studio at /studio on the website.
- * Lydia uses this to manage products, portfolio items, and settings.
- *
- * You need to be logged into your Sanity account to use it.
+ * Sanity Studio Page — Placeholder for static export
  */
 
-"use client";
-
-import { NextStudio } from "next-sanity/studio";
-import config from "@/sanity/sanity.config";
+export function generateStaticParams() {
+  return [{ tool: [] }];
+}
 
 export default function StudioPage() {
-  return <NextStudio config={config} />;
+  return (
+    <main id="main-content" className="pt-24 pb-20 px-4 text-center">
+      <h1 className="font-[family-name:var(--font-bebas)] text-4xl text-sfr-cream mb-4">
+        SANITY STUDIO
+      </h1>
+      <p className="text-sfr-cream/60">
+        The Sanity Studio runs on the full Next.js server.
+        Run <code className="text-sfr-green">npm run dev</code> locally to access it.
+      </p>
+    </main>
+  );
 }
