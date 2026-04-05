@@ -8,9 +8,15 @@
 
 import type { NextConfig } from "next";
 
+const isGitHubPages = process.env.GITHUB_ACTIONS === "true";
+
 const nextConfig: NextConfig = {
   // Static export for GitHub Pages
   output: "export",
+
+  // GitHub Pages serves from /shitfriedrice/ subdirectory
+  basePath: isGitHubPages ? "/shitfriedrice" : "",
+  assetPrefix: isGitHubPages ? "/shitfriedrice/" : "",
 
   // Allow images from these domains (Sanity CDN + placeholder images)
   images: {
