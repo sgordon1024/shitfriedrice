@@ -1,0 +1,419 @@
+@import "tailwindcss";
+
+/* =============================================
+   SHITFRIEDRICE — Global Styles
+
+   These are the base styles for the whole site.
+   Colors, fonts, animations, textures — all the
+   stuff that makes this site feel like Lydia's house.
+   ============================================= */
+
+/* --- Custom CSS Variables (Design Tokens) --- */
+@theme {
+  --color-sfr-black: #1a1a1a;
+  --color-sfr-cream: #f5f0e8;
+  --color-sfr-red: #c5371a;
+  --color-sfr-orange: #e8630a;
+  --color-sfr-green: #ff2d8a;
+  --color-sfr-blue: #4db8d4;
+  --color-sfr-silver: #c0c0c0;
+  --color-sfr-green-dark: #d4206e;
+
+  --font-bebas: "Bebas Neue", sans-serif;
+  --font-syne: "Syne", sans-serif;
+  --font-inter: "Inter", sans-serif;
+  --font-syne-mono: "Syne Mono", monospace;
+  --font-fell: "IM Fell English", serif;
+  --font-cormorant: "Cormorant Garamond", serif;
+}
+
+/* --- Base styles --- */
+body {
+  background-color: var(--color-sfr-black);
+  color: var(--color-sfr-cream);
+  font-family: var(--font-inter);
+  overflow-x: hidden;
+}
+
+/* --- Custom cursor (desktop only) --- */
+@media (hover: hover) {
+  * {
+    cursor: url('/cursor.svg') 12 12, auto;
+  }
+  a, button, [role="button"], input[type="submit"], select {
+    cursor: url('/cursor.svg') 12 12, pointer;
+  }
+}
+
+/* --- Grain/noise texture overlay on the whole page --- */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.035;
+  background-image: url('/noise.svg');
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+/* --- Skip to content (accessibility) --- */
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  padding: 0.75rem 1.5rem;
+  background: var(--color-sfr-green);
+  color: var(--color-sfr-black);
+  font-weight: 700;
+  border-radius: 0 0 8px 8px;
+  transition: top 0.2s;
+}
+.skip-to-content:focus {
+  top: 0;
+}
+
+/* --- Focus ring for all interactive elements (accessibility) --- */
+*:focus-visible {
+  outline: 2px solid var(--color-sfr-green);
+  outline-offset: 2px;
+}
+
+/* --- Marquee / ticker animation --- */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes marquee-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .marquee-track {
+    animation: marquee-scroll 30s linear infinite;
+  }
+}
+
+/* --- CTA pulse animation --- */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes cta-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.82; }
+  }
+
+  .cta-pulse {
+    animation: cta-pulse 2.5s ease-in-out infinite;
+  }
+}
+
+/* --- Floating / drifting animation for hero images (TRIPLED motion) --- */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0px) translateX(0px) rotate(var(--float-rotate, 0deg)) scale(1); }
+    25% { transform: translateY(-30px) translateX(12px) rotate(calc(var(--float-rotate, 0deg) + 3deg)) scale(1.04); }
+    50% { transform: translateY(-50px) translateX(-8px) rotate(calc(var(--float-rotate, 0deg) - 2deg)) scale(1.08); }
+    75% { transform: translateY(-25px) translateX(15px) rotate(calc(var(--float-rotate, 0deg) + 4deg)) scale(1.02); }
+  }
+  @keyframes float-medium {
+    0%, 100% { transform: translateY(0px) translateX(0px) rotate(var(--float-rotate, 0deg)) scale(1); }
+    25% { transform: translateY(-22px) translateX(-15px) rotate(calc(var(--float-rotate, 0deg) - 4deg)) scale(1.06); }
+    50% { transform: translateY(-38px) translateX(10px) rotate(calc(var(--float-rotate, 0deg) + 3deg)) scale(0.96); }
+    75% { transform: translateY(-15px) translateX(-12px) rotate(calc(var(--float-rotate, 0deg) - 2deg)) scale(1.03); }
+  }
+  @keyframes float-fast {
+    0%, 100% { transform: translateY(0px) translateX(0px) rotate(var(--float-rotate, 0deg)) scale(1); }
+    25% { transform: translateY(-18px) translateX(18px) rotate(calc(var(--float-rotate, 0deg) + 5deg)) scale(1.05); }
+    50% { transform: translateY(-28px) translateX(-14px) rotate(calc(var(--float-rotate, 0deg) - 4deg)) scale(0.94); }
+    75% { transform: translateY(-10px) translateX(10px) rotate(calc(var(--float-rotate, 0deg) + 3deg)) scale(1.07); }
+  }
+  /* Extra wild float for the tripled images */
+  @keyframes float-wild {
+    0%, 100% { transform: translateY(0px) translateX(0px) rotate(var(--float-rotate, 0deg)) scale(1); }
+    20% { transform: translateY(-40px) translateX(20px) rotate(calc(var(--float-rotate, 0deg) + 6deg)) scale(1.1); }
+    40% { transform: translateY(-15px) translateX(-25px) rotate(calc(var(--float-rotate, 0deg) - 5deg)) scale(0.92); }
+    60% { transform: translateY(-55px) translateX(10px) rotate(calc(var(--float-rotate, 0deg) + 4deg)) scale(1.06); }
+    80% { transform: translateY(-20px) translateX(-15px) rotate(calc(var(--float-rotate, 0deg) - 3deg)) scale(1.03); }
+  }
+  @keyframes float-drift {
+    0%, 100% { transform: translateY(0px) translateX(0px) rotate(var(--float-rotate, 0deg)); }
+    33% { transform: translateY(-35px) translateX(30px) rotate(calc(var(--float-rotate, 0deg) + 8deg)); }
+    66% { transform: translateY(-20px) translateX(-20px) rotate(calc(var(--float-rotate, 0deg) - 6deg)); }
+  }
+
+  .float-slow { animation: float-slow 7s ease-in-out infinite; }
+  .float-medium { animation: float-medium 5s ease-in-out infinite; }
+  .float-fast { animation: float-fast 3.5s ease-in-out infinite; }
+  .float-wild { animation: float-wild 6s ease-in-out infinite; }
+  .float-drift { animation: float-drift 8s ease-in-out infinite; }
+}
+
+/* --- Logo wobble on hover --- */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes jiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-1.5deg); }
+    75% { transform: rotate(1.5deg); }
+  }
+
+  .logo-jiggle:hover {
+    animation: jiggle 0.3s ease-in-out 2;
+  }
+}
+
+/* --- Sauce squeeze animation for magnet hover --- */
+@media (prefers-reduced-motion: no-preference) {
+  .sauce-squeeze {
+    transition: transform 0.25s ease;
+  }
+  .sauce-squeeze:hover {
+    transform: scaleX(0.92) scaleY(1.06);
+  }
+}
+
+/* --- Decorative object animations (the dizzy stuff) --- */
+@media (prefers-reduced-motion: no-preference) {
+  /* Slow continuous spin */
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  /* Reverse spin */
+  @keyframes spin-slow-reverse {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+  }
+  /* Breathing/pulsing scale */
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+  }
+  /* Wobble orbit — elliptical drift */
+  @keyframes orbit {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(15px, -20px) rotate(90deg); }
+    50% { transform: translate(-10px, -35px) rotate(180deg); }
+    75% { transform: translate(-20px, -15px) rotate(270deg); }
+    100% { transform: translate(0, 0) rotate(360deg); }
+  }
+  /* Wider chaotic drift */
+  @keyframes drift-chaos {
+    0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+    20% { transform: translate(25px, -15px) scale(1.1) rotate(72deg); }
+    40% { transform: translate(-15px, -30px) scale(0.95) rotate(144deg); }
+    60% { transform: translate(-30px, 10px) scale(1.08) rotate(216deg); }
+    80% { transform: translate(20px, 20px) scale(0.92) rotate(288deg); }
+    100% { transform: translate(0, 0) scale(1) rotate(360deg); }
+  }
+  /* Hue cycle — color shifting */
+  @keyframes hue-cycle {
+    0% { filter: hue-rotate(0deg) brightness(1); }
+    50% { filter: hue-rotate(180deg) brightness(1.2); }
+    100% { filter: hue-rotate(360deg) brightness(1); }
+  }
+  /* Twinkle — opacity flicker */
+  @keyframes twinkle {
+    0%, 100% { opacity: var(--twinkle-base, 0.3); }
+    50% { opacity: var(--twinkle-peak, 0.7); }
+  }
+  /* Figure-eight path */
+  @keyframes figure-eight {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    12.5% { transform: translate(20px, -10px) rotate(45deg); }
+    25% { transform: translate(30px, 0) rotate(90deg); }
+    37.5% { transform: translate(20px, 10px) rotate(135deg); }
+    50% { transform: translate(0, 0) rotate(180deg); }
+    62.5% { transform: translate(-20px, -10px) rotate(225deg); }
+    75% { transform: translate(-30px, 0) rotate(270deg); }
+    87.5% { transform: translate(-20px, 10px) rotate(315deg); }
+    100% { transform: translate(0, 0) rotate(360deg); }
+  }
+
+  .decor-spin { animation: spin-slow 12s linear infinite; }
+  .decor-spin-reverse { animation: spin-slow-reverse 15s linear infinite; }
+  .decor-breathe { animation: breathe 4s ease-in-out infinite; }
+  .decor-orbit { animation: orbit 8s ease-in-out infinite; }
+  .decor-chaos { animation: drift-chaos 10s ease-in-out infinite; }
+  .decor-hue { animation: hue-cycle 6s linear infinite; }
+  .decor-twinkle { animation: twinkle 3s ease-in-out infinite; }
+  .decor-eight { animation: figure-eight 14s ease-in-out infinite; }
+
+  /* Combined classes for maximum dizziness */
+  .decor-spin-hue {
+    animation: spin-slow 12s linear infinite, hue-cycle 6s linear infinite;
+  }
+  .decor-orbit-breathe {
+    animation: orbit 8s ease-in-out infinite, breathe 4s ease-in-out infinite;
+  }
+  .decor-chaos-hue {
+    animation: drift-chaos 10s ease-in-out infinite, hue-cycle 8s linear infinite;
+  }
+  .decor-eight-twinkle {
+    animation: figure-eight 14s ease-in-out infinite, twinkle 3s ease-in-out infinite;
+  }
+}
+
+/* --- Iridescent shimmer effect (for lava lamp / Prebiotic Broth items) --- */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes iridescent-shift {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+  }
+
+  .iridescent {
+    background: linear-gradient(
+      135deg,
+      #ff6ec4 0%,
+      #7873f5 25%,
+      #4db8d4 50%,
+      #7ec84c 75%,
+      #ff6ec4 100%
+    );
+    background-size: 400% 400%;
+    animation: iridescent-shift 8s linear infinite;
+  }
+}
+
+/* --- Rainbow void overlay for product image hover --- */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes rainbow-void-sweep {
+    0% { background-position: 0% 50%; opacity: 0; }
+    15% { opacity: 0.7; }
+    50% { background-position: 100% 50%; opacity: 0.55; }
+    85% { opacity: 0.7; }
+    100% { background-position: 200% 50%; opacity: 0; }
+  }
+
+  .rainbow-void-overlay {
+    background: linear-gradient(
+      var(--rainbow-angle, 45deg),
+      #ff0000 0%,
+      #ff8800 12%,
+      #ffff00 24%,
+      #00ff00 36%,
+      #00ffff 48%,
+      #0066ff 60%,
+      #8800ff 72%,
+      #ff00ff 84%,
+      #ff0000 100%
+    );
+    background-size: 200% 200%;
+    mix-blend-mode: overlay;
+    animation: rainbow-void-sweep 1.5s ease-in-out infinite;
+    pointer-events: none;
+  }
+}
+
+/* --- Dashed border utility --- */
+.border-dashed-sfr {
+  border: 2px dashed rgba(245, 240, 232, 0.15);
+}
+
+/* --- Scrollbar styling (subtle) --- */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-sfr-black);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(192, 192, 192, 0.3);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(192, 192, 192, 0.5);
+}
+
+/* --- Selection color --- */
+::selection {
+  background: var(--color-sfr-green);
+  color: var(--color-sfr-black);
+}
+
+/* =============================================
+   STORYBOOK — Squish's fairy tale page styles
+   ============================================= */
+
+/* Parchment background with paper texture */
+.storybook-page {
+  background-color: var(--color-sfr-cream);
+  position: relative;
+}
+.storybook-page::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: url('/noise.svg');
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+/* Decorative double border */
+.storybook-border {
+  border: 3px double rgba(197, 55, 26, 0.25);
+  padding: 2rem 1.5rem;
+}
+@media (min-width: 640px) {
+  .storybook-border { padding: 3rem 2.5rem; }
+}
+@media (min-width: 768px) {
+  .storybook-border { padding: 4rem 3.5rem; }
+}
+
+/* Story body text */
+.storybook-text {
+  font-family: var(--font-fell);
+  color: #2a2118;
+  font-size: 1.125rem;
+  line-height: 1.85;
+  text-align: justify;
+  hyphens: auto;
+}
+@media (max-width: 639px) {
+  .storybook-text { font-size: 1rem; }
+}
+
+/* Drop cap on first paragraph of each story section */
+.storybook-drop-cap::first-letter {
+  font-family: var(--font-cormorant);
+  font-weight: 700;
+  font-size: 3.5em;
+  float: left;
+  line-height: 0.8;
+  margin-right: 0.08em;
+  margin-top: 0.05em;
+  color: var(--color-sfr-red);
+}
+
+/* Chapter number */
+.storybook-chapter-num {
+  font-family: var(--font-cormorant);
+  font-variant: small-caps;
+  letter-spacing: 0.15em;
+  color: #2a2118;
+  opacity: 0.5;
+}
+
+/* Chapter title */
+.storybook-chapter-title {
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  color: #2a2118;
+}
+
+/* Game frame */
+.game-frame {
+  border: 3px double rgba(197, 55, 26, 0.25);
+  background: #f0ead8;
+}
+
+/* The End flourish */
+.storybook-the-end {
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  color: #2a2118;
+}
