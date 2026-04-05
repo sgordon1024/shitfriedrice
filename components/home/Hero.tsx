@@ -1,9 +1,8 @@
 /**
  * Hero — The first thing you see on the homepage
  *
- * Giant rainbow title text with mouse-proximity variable weight,
- * objects rain down from above and pile up at the bottom of the section.
- * No rubber-band, no parallax, no floating — just gravity rain.
+ * Giant rainbow title text with mouse-proximity variable weight.
+ * Objects continuously rain down with real bounce physics and pile up.
  */
 
 "use client";
@@ -11,74 +10,8 @@
 import { useRef, useState, useCallback, useEffect } from "react";
 import { motion, useMotionValue, useSpring, animate } from "framer-motion";
 import Button from "@/components/ui/Button";
-import Image from "next/image";
 import { playBoingDown, playBoingUp } from "@/lib/sounds";
-import { asset } from "@/lib/prefix";
-
-// All the decor objects that will rain down
-const RAIN_ITEMS = [
-  asset("/images/decor/gem1.png"),
-  asset("/images/decor/gem2.png"),
-  asset("/images/decor/gem3.png"),
-  asset("/images/decor/shell1.png"),
-  asset("/images/decor/shell2.png"),
-  asset("/images/decor/shell3.png"),
-  asset("/images/decor/star1.png"),
-  asset("/images/decor/star2.png"),
-  asset("/images/decor/star3.png"),
-  asset("/images/decor/iridescent1.png"),
-  asset("/images/decor/iridescent2.png"),
-  asset("/images/decor/butterfly1.png"),
-  asset("/images/decor/butterfly2.png"),
-  asset("/images/decor/pearl1.png"),
-  asset("/images/decor/pearl2.png"),
-  asset("/images/decor/flower1.png"),
-  asset("/images/decor/flower2.png"),
-  asset("/images/decor/spiral1.png"),
-  asset("/images/decor/moon1.png"),
-  asset("/images/decor/skull1.png"),
-  asset("/images/decor/skull2.png"),
-  asset("/images/decor/heart1.png"),
-  asset("/images/decor/heart2.png"),
-  asset("/images/decor/gold1.png"),
-  asset("/images/decor/crystal2.png"),
-  asset("/images/decor/moth1.png"),
-  asset("/images/decor/cube1.png"),
-  asset("/images/decor/key1.png"),
-  asset("/images/decor/cloud1.png"),
-  asset("/images/decor/eyes1.png"),
-  asset("/images/decor/purple1.png"),
-  asset("/images/decor/pink1.png"),
-  asset("/images/decor/orange1.png"),
-  asset("/images/decor/silver1.png"),
-  asset("/images/decor/blue1.png"),
-  asset("/images/decor/figurine1.png"),
-];
-
-// Each raining object gets randomized properties on mount
-interface RainDrop {
-  src: string;
-  x: number;       // horizontal position as %
-  size: number;     // px
-  delay: number;    // seconds before it starts falling
-  duration: number; // how long the fall takes
-  rotation: number; // final rotation
-  opacity: number;
-  landY: number;    // how far from bottom it lands (pile height)
-}
-
-function generateRainDrops(): RainDrop[] {
-  return RAIN_ITEMS.map((src, i) => ({
-    src,
-    x: (i * 2.7 + Math.random() * 3) % 100,  // spread across width
-    size: 30 + Math.random() * 40,
-    delay: 0.8 + Math.random() * 3.5,         // stagger over ~4 seconds
-    duration: 1.2 + Math.random() * 1.5,      // 1.2-2.7s fall time
-    rotation: -30 + Math.random() * 60,        // tumble as they fall
-    opacity: 0.3 + Math.random() * 0.4,
-    landY: Math.random() * 60,                 // pile up variation
-  }));
-}
+import ObjectRain from "./ObjectRain";
 
 export default function Hero() {
   const ref = useRef<HTMLDivElement>(null);
@@ -136,9 +69,6 @@ export default function Hero() {
     }
   }, [fontWeight, hasHover]);
 
-  // Generate rain drops once on mount
-  const [drops] = useState<RainDrop[]>(() => generateRainDrops());
-
   return (
     <section
       ref={ref}
@@ -146,49 +76,10 @@ export default function Hero() {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Raining objects — fall and pile up at the bottom */}
-      <div className="absolute inset-0 hidden md:block pointer-events-none" aria-hidden="true">
-        {drops.map((drop, i) => (
-          <motion.div
-            key={i}
-            className="absolute"
-            style={{
-              left: `${drop.x}%`,
-              width: drop.size,
-              height: drop.size,
-              bottom: 0,
-            }}
-            initial={{
-              y: -800 - drop.size,
-              rotate: -drop.rotation * 2,
-              opacity: 0,
-            }}
-            animate={{
-              y: -drop.landY,
-              rotate: drop.rotation,
-              opacity: drop.opacity,
-            }}
-            transition={{
-              delay: drop.delay,
-              duration: drop.duration,
-              ease: [0.2, 0, 0.6, 1],   // fast fall, decelerates on landing
-              opacity: { delay: drop.delay, duration: 0.3 },
-            }}
-          >
-            <Image
-              src={drop.src}
-              alt=""
-              width={60}
-              height={60}
-              sizes={`${drop.size}px`}
-              className="object-contain w-full h-full"
-              loading="lazy"
-            />
-          </motion.div>
-        ))}
-      </div>
+      {/* Continuous raining objects with bounce physics */}
+      <ObjectRain />
 
-      {/* Main hero content — shows FIRST */}
+      {/* Main hero content */}
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 text-center">
         <motion.h1
           ref={headlineRef}
@@ -201,7 +92,6 @@ export default function Hero() {
             fontSize: "clamp(4rem, 15vw, 14rem)",
           }}
         >
-          {/* Each line is nowrap so weight changes never cause reflow */}
           <span className="block whitespace-nowrap">
             <RainbowText text="Art made" />
           </span>
