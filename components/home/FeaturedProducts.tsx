@@ -9,6 +9,7 @@
 
 import { motion } from "framer-motion";
 import ProductCard from "@/components/ui/ProductCard";
+import { asset } from "@/lib/prefix";
 
 // Placeholder data for when Sanity isn't set up yet
 // TODO: Replace with actual Sanity data once connected
@@ -19,7 +20,7 @@ const placeholderProducts = [
     slug: { current: "heinz-full-set-magnets" },
     price: 85,
     category: "sauce_packet_magnets",
-    image: "/images/projects/sauce-packet-magnets/sauce-packet-magnets_01.jpg",
+    image: asset("/images/projects/sauce-packet-magnets/sauce-packet-magnets_01.jpg"),
     inStock: true,
     oneOfAKind: false,
   },
@@ -29,7 +30,7 @@ const placeholderProducts = [
     slug: { current: "prebiotic-broth-lava-lamp" },
     price: 450,
     category: "lava_lamps",
-    image: "/images/projects/prebiotic-broth/prebiotic-broth_01.jpg",
+    image: asset("/images/projects/prebiotic-broth/prebiotic-broth_01.jpg"),
     inStock: true,
     oneOfAKind: true,
   },
@@ -39,7 +40,7 @@ const placeholderProducts = [
     slug: { current: "1993-crystal-pepsi-sculpture" },
     price: 275,
     category: "resin_sculptures",
-    image: "/images/projects/1993/1993_01.jpg",
+    image: asset("/images/projects/1993/1993_01.jpg"),
     inStock: true,
     oneOfAKind: true,
   },

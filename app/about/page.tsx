@@ -8,6 +8,7 @@
 import Image from "next/image";
 import Button from "@/components/ui/Button";
 import type { Metadata } from "next";
+import { asset } from "@/lib/prefix";
 
 export const metadata: Metadata = {
   title: "About — Shitfriedrice",
@@ -78,7 +79,7 @@ export default function AboutPage() {
         <div className="relative aspect-[3/4] border-dashed-sfr overflow-hidden">
           {/* TODO: Drop in photo of Lydia here */}
           <Image
-            src="/images/projects/shit-fried-rice/shit-fried-rice_04.jpg"
+            src={asset("/images/projects/shit-fried-rice/shit-fried-rice_04.jpg")}
             alt="Lydia, the artist behind Shitfriedrice, in her studio"
             fill
             sizes="(max-width: 1024px) 100vw, 50vw"

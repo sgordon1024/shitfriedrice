@@ -14,6 +14,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import StorySection from "./StorySection";
 import ChapterDivider from "./ChapterDivider";
 import CorgiRunner from "./CorgiRunner";
+import { asset } from "@/lib/prefix";
 
 // --- The complete fairy tale ---
 
@@ -78,12 +79,12 @@ const chapter4 = {
 
 // Squish photos sprinkled through the story
 const squishPhotos = [
-  "/images/squish/img_1012.jpg", // loaf pose — hero
-  "/images/squish/img_3064.jpg", // happy in van
-  "/images/squish/img_2912.jpg", // sleepy on bed
-  "/images/squish/img_4438.jpg", // in the garden
-  "/images/squish/img_5921.jpg", // looking out car window
-  "/images/squish/img_1757.jpg", // close-up portrait
+  asset("/images/squish/img_1012.jpg"), // loaf pose — hero
+  asset("/images/squish/img_3064.jpg"), // happy in van
+  asset("/images/squish/img_2912.jpg"), // sleepy on bed
+  asset("/images/squish/img_4438.jpg"), // in the garden
+  asset("/images/squish/img_5921.jpg"), // looking out car window
+  asset("/images/squish/img_1757.jpg"), // close-up portrait
 ];
 
 export default function SquishStorybook() {

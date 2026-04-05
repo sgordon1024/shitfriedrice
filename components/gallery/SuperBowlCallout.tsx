@@ -9,6 +9,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { asset } from "@/lib/prefix";
 
 export default function SuperBowlCallout() {
   return (
@@ -23,7 +24,7 @@ export default function SuperBowlCallout() {
         <div className="relative aspect-[16/10] lg:aspect-auto">
           {/* TODO: Replace with actual photo of Super Bowl taco props */}
           <Image
-            src="/images/projects/villas-tacos/villas-tacos_01.jpg"
+            src={asset("/images/projects/villas-tacos/villas-tacos_01.jpg")}
             alt="Fake taco props made by Shitfriedrice for Villa's Tacos at Bad Bunny's Super Bowl LX halftime show"
             fill
             sizes="(max-width: 1024px) 100vw, 50vw"

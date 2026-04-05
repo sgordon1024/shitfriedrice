@@ -11,6 +11,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
+import { asset } from "@/lib/prefix";
 
 export default function SuperBowlBanner() {
   return (
@@ -79,7 +80,7 @@ export default function SuperBowlBanner() {
             <div className="relative aspect-[4/3] border-dashed-sfr !border-sfr-black/20 overflow-hidden">
               {/* TODO: INSERT photo of fake taco props / Villa's Tacos stand */}
               <Image
-                src="/images/projects/villas-tacos/villas-tacos_01.jpg"
+                src={asset("/images/projects/villas-tacos/villas-tacos_01.jpg")}
                 alt="Fake taco props made by Shitfriedrice for Villa's Tacos at Super Bowl LX halftime show"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"

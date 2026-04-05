@@ -13,6 +13,7 @@ import { notFound } from "next/navigation";
 import AddToCart from "@/components/shop/AddToCart";
 import Badge from "@/components/ui/Badge";
 import type { Metadata } from "next";
+import { asset } from "@/lib/prefix";
 
 // Placeholder product data — replace with Sanity fetch in production
 // TODO: Replace with actual Sanity data once connected
@@ -36,9 +37,9 @@ const placeholderProducts: Record<string, {
     category: "sauce_packet_magnets",
     price: 85,
     images: [
-      "/images/projects/sauce-packet-magnets/sauce-packet-magnets_01.jpg",
-      "/images/projects/sauce-packet-magnets/sauce-packet-magnets_02.jpg",
-      "/images/projects/sauce-packet-magnets/sauce-packet-magnets_06.jpg",
+      asset("/images/projects/sauce-packet-magnets/sauce-packet-magnets_01.jpg"),
+      asset("/images/projects/sauce-packet-magnets/sauce-packet-magnets_02.jpg"),
+      asset("/images/projects/sauce-packet-magnets/sauce-packet-magnets_06.jpg"),
     ],
     description:
       "The complete Heinz lineup. Ketchup through horseradish. All oozing. All permanent. All on your fridge forever. Made with real Heinz packets and a concerning amount of resin. Comes as a set of 10.",
@@ -54,9 +55,9 @@ const placeholderProducts: Record<string, {
     category: "lava_lamps",
     price: 450,
     images: [
-      "/images/projects/prebiotic-broth/prebiotic-broth_01.jpg",
-      "/images/projects/prebiotic-broth/prebiotic-broth_02.jpg",
-      "/images/projects/prebiotic-broth/prebiotic-broth_03.jpg",
+      asset("/images/projects/prebiotic-broth/prebiotic-broth_01.jpg"),
+      asset("/images/projects/prebiotic-broth/prebiotic-broth_02.jpg"),
+      asset("/images/projects/prebiotic-broth/prebiotic-broth_03.jpg"),
     ],
     description:
       "Standard lava lamp. Nonstandard everything else. Base and cap are hand-built iridescent mosaic — broken holographic tiles set in dark clay, oil-slick rainbow shift depending on the light. The lava is not broth. Probably.",
@@ -72,9 +73,9 @@ const placeholderProducts: Record<string, {
     category: "resin_sculptures",
     price: 275,
     images: [
-      "/images/projects/1993/1993_01.jpg",
-      "/images/projects/1993/1993_02.jpg",
-      "/images/projects/1993/1993_03.jpg",
+      asset("/images/projects/1993/1993_01.jpg"),
+      asset("/images/projects/1993/1993_02.jpg"),
+      asset("/images/projects/1993/1993_03.jpg"),
     ],
     description:
       'Crystal Pepsi, mid-pour. Suspended in time above an AOL free trial floppy disk. Two things that were definitely going to work out. Gravity-defying chrome resin. Fully functional as a conversation piece. Not as a beverage.',
@@ -90,9 +91,9 @@ const placeholderProducts: Record<string, {
     category: "resin_sculptures",
     price: 350,
     images: [
-      "/images/projects/shit-fried-rice/shit-fried-rice_01.jpg",
-      "/images/projects/shit-fried-rice/shit-fried-rice_02.jpg",
-      "/images/projects/shit-fried-rice/shit-fried-rice_03.jpg",
+      asset("/images/projects/shit-fried-rice/shit-fried-rice_01.jpg"),
+      asset("/images/projects/shit-fried-rice/shit-fried-rice_02.jpg"),
+      asset("/images/projects/shit-fried-rice/shit-fried-rice_03.jpg"),
     ],
     description:
       "The one that started the name. A hyperrealistic fake fried rice bowl — pink ceramic bowl filled with sculpted orzo-style rice, glossy dark sausage pieces, corn, peas, carrots, herbs, and a real wooden spoon. Wall-mounted. This is the piece the entire business is named after. It is what it is.",
@@ -108,9 +109,9 @@ const placeholderProducts: Record<string, {
     category: "jewelry",
     price: 380,
     images: [
-      "/images/projects/time-tellers/time-tellers_01.jpg",
-      "/images/projects/time-tellers/time-tellers_02.jpg",
-      "/images/projects/time-tellers/time-tellers_03.jpg",
+      asset("/images/projects/time-tellers/time-tellers_01.jpg"),
+      asset("/images/projects/time-tellers/time-tellers_02.jpg"),
+      asset("/images/projects/time-tellers/time-tellers_03.jpg"),
     ],
     description:
       "A functioning wall clock built on a circular platter base. Real oyster shells arranged like clock positions on crushed ice resin, lemon wedge sculptures, herb sprigs, and a mignonette sauce cup in the center housing the clock mechanism. Available with blue LED underlighting or natural lavender/iridescent shell interiors. Yes, it tells time. Yes, it looks like the raw bar at a nice restaurant.",
