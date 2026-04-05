@@ -8,7 +8,7 @@
 
 export default function Marquee() {
   const text =
-    "handmade \u2022 one of a kind \u2022 probably resin \u2022 lava lamps that slap \u2022 sauce packet connoisseur \u2022 bad bunny knows \u2022 made with love and weird energy \u2022 your fridge deserves this \u2022 condiments are art \u2022 ";
+    "handmade by a woman in a garage \u2022 one of a kind like you babe \u2022 it\u2019s probably resin \u2022 lava lamps that have no business going that hard \u2022 sauce packet sommelier \u2022 bad bunny literally knows who i am \u2022 made with love and fumes \u2022 your fridge called and it\u2019s begging \u2022 condiments are a lifestyle \u2022 squish approved \u2022 ";
 
   return (
     <div

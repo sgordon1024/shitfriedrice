@@ -42,7 +42,7 @@ const placeholderProducts: Record<string, {
       asset("/images/projects/sauce-packet-magnets/sauce-packet-magnets_06.jpg"),
     ],
     description:
-      "The complete Heinz lineup. Ketchup through horseradish. All oozing. All permanent. All on your fridge forever. Made with real Heinz packets and a concerning amount of resin. Comes as a set of 10.",
+      "The full Heinz roster. Ketchup all the way through horseradish. Every single one oozing like it's having a moment. Permanently. On your fridge. Forever. Made with real Heinz packets and what some might call a 'concerning' amount of resin. Comes as a set of 10 because you deserve the whole squad.",
     materials: "Heinz condiment packets, resin, neodymium magnets",
     inStock: true,
     quantity: 5,
@@ -60,7 +60,7 @@ const placeholderProducts: Record<string, {
       asset("/images/projects/prebiotic-broth/prebiotic-broth_03.jpg"),
     ],
     description:
-      "Standard lava lamp. Nonstandard everything else. Base and cap are hand-built iridescent mosaic — broken holographic tiles set in dark clay, oil-slick rainbow shift depending on the light. The lava is not broth. Probably.",
+      "Okay so it's a lava lamp but also it's not just a lava lamp because the base and cap are hand-built iridescent mosaic — broken holographic tiles set in dark clay, giving you that oil-slick rainbow shift depending on the light. Every angle is different. The lava is not actual broth. Probably. I haven't tested it. Don't test it.",
     materials: "Lava lamp, holographic tile shards, polymer clay, resin",
     inStock: true,
     quantity: 1,
@@ -78,7 +78,7 @@ const placeholderProducts: Record<string, {
       asset("/images/projects/1993/1993_03.jpg"),
     ],
     description:
-      'Crystal Pepsi, mid-pour. Suspended in time above an AOL free trial floppy disk. Two things that were definitely going to work out. Gravity-defying chrome resin. Fully functional as a conversation piece. Not as a beverage.',
+      'Crystal Pepsi, mid-pour, frozen in time above an AOL free trial floppy disk. Two things from the 90s that were DEFINITELY going to work out. Gravity-defying chrome resin that will make your friends go "wait how." Fully functional as a conversation starter at every gathering for the rest of your life. Not functional as a beverage. Don\'t.',
     materials: "Crystal Pepsi can (vintage), AOL floppy disk (vintage), chrome resin",
     inStock: true,
     quantity: 1,
@@ -96,7 +96,7 @@ const placeholderProducts: Record<string, {
       asset("/images/projects/shit-fried-rice/shit-fried-rice_03.jpg"),
     ],
     description:
-      "The one that started the name. A hyperrealistic fake fried rice bowl — pink ceramic bowl filled with sculpted orzo-style rice, glossy dark sausage pieces, corn, peas, carrots, herbs, and a real wooden spoon. Wall-mounted. This is the piece the entire business is named after. It is what it is.",
+      "This is THE one. The OG. The reason this entire business exists. A hyperrealistic fake fried rice bowl — pink ceramic bowl packed with sculpted orzo-style rice, glossy dark sausage pieces, corn, peas, carrots, herbs, and a real wooden spoon just chilling in there. Wall-mounted. You cannot eat it. Squish has tried. This piece literally named the company and honestly it deserved to.",
     materials: "Ceramic bowl, resin, acrylic paint, real wooden spoon, wall mount hardware",
     inStock: true,
     quantity: 1,
@@ -114,7 +114,7 @@ const placeholderProducts: Record<string, {
       asset("/images/projects/time-tellers/time-tellers_03.jpg"),
     ],
     description:
-      "A functioning wall clock built on a circular platter base. Real oyster shells arranged like clock positions on crushed ice resin, lemon wedge sculptures, herb sprigs, and a mignonette sauce cup in the center housing the clock mechanism. Available with blue LED underlighting or natural lavender/iridescent shell interiors. Yes, it tells time. Yes, it looks like the raw bar at a nice restaurant.",
+      "A functioning wall clock that looks like the raw bar at a restaurant where the wait is two hours and they don't take reservations. Real oyster shells arranged like clock positions on crushed ice resin, lemon wedge sculptures, herb sprigs, and a mignonette sauce cup in the center housing the clock mechanism. Available with blue LED underlighting or natural lavender/iridescent shell interiors. It tells time AND it's giving coastal grandmother energy. You're welcome.",
     materials: "Oyster shells, resin, clock mechanism, platter base, LED lighting (optional), lemon wedge sculptures, herb sprigs",
     inStock: true,
     quantity: 1,
@@ -274,12 +274,12 @@ export default async function ProductDetailPage({
           {/* Commission note for one-of-a-kind pieces */}
           {product.oneOfAKind && (
             <p className="text-sfr-cream/40 text-sm border-t border-white/10 pt-4">
-              This is a one-of-a-kind piece. Want something similar made custom?{" "}
+              This is literally one of a kind. Like you. Want Lydia to make you something custom?{" "}
               <a
                 href="/commissions"
                 className="text-sfr-green hover:text-sfr-green-dark transition-colors underline"
               >
-                Request a commission
+                Commission something wild
               </a>
               .
             </p>

@@ -96,10 +96,10 @@ export default function CartDrawer() {
               {items.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full text-center">
                   <p className="text-sfr-cream/50 text-lg mb-2">
-                    Nothing here yet.
+                    It&apos;s empty in here bestie.
                   </p>
                   <p className="text-sfr-cream/30 text-sm">
-                    Go find something weird in the shop.
+                    Go treat yourself to something chaotic from the shop. You deserve this.
                   </p>
                 </div>
               ) : (
@@ -196,7 +196,7 @@ export default function CartDrawer() {
                   disabled={isLoading}
                   className="w-full py-3 bg-sfr-green text-sfr-black font-bold uppercase tracking-wider text-sm hover:bg-sfr-green-dark transition-colors disabled:opacity-50 cta-pulse min-h-[44px]"
                 >
-                  {isLoading ? "Loading..." : "Checkout"}
+                  {isLoading ? "Hold on..." : "Secure the bag"}
                 </button>
               </div>
             )}

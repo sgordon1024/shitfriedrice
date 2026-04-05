@@ -106,8 +106,8 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.15 }}
         >
-          Yes, those were our tacos at the Bad Bunny Super Bowl halftime show.
-          No, you can&apos;t eat them.
+          Okay so I made fake tacos for Bad Bunny&apos;s Super Bowl halftime show and honestly
+          things have only gotten weirder from there. No you cannot eat them. I tried.
         </motion.p>
 
         <motion.div
@@ -117,10 +117,10 @@ export default function Hero() {
           transition={{ duration: 0.4, delay: 0.3 }}
         >
           <Button href="/shop" variant="primary">
-            Shop the weird stuff
+            Give me your money
           </Button>
           <Button href="/commissions" variant="secondary">
-            Request a commission
+            Make me make you something
           </Button>
         </motion.div>
       </div>

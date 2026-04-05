@@ -17,41 +17,41 @@ const commissionTypes = [
   {
     title: "Custom Lava Lamps",
     description:
-      "Prebiotic Broth style — hand-built iridescent mosaic base and cap, custom colors. Your lava, your vibe.",
+      "Prebiotic Broth vibes — hand-built iridescent mosaic base and cap, whatever colors make your brain happy. Your lava lamp will not look like anyone else's lava lamp and that's the whole point.",
   },
   {
     title: "Custom Game Boards",
     description:
-      "Full 3D diorama boards — Catan, whatever else you play. Real moss, tiny buildings, the whole thing.",
+      "Full 3D diorama game boards that will absolutely ruin game night because everyone will be too busy staring at the board to actually play. Real moss, tiny buildings, the whole ridiculous thing.",
   },
   {
     title: "Prop Food / Event Pieces",
     description:
-      "Fake food for film, TV, events, or your weird dinner party. We literally made tacos for the Super Bowl.",
+      "Fake food for film, TV, events, or that one dinner party where you want to gaslight your guests. I literally made tacos for Bad Bunny's Super Bowl halftime show so like, I'm qualified.",
   },
   {
     title: "Oyster Shell Clocks",
     description:
-      "Time Tellers — functioning wall clocks on a platter base with real oyster shells, crushed ice resin, lemon wedges, and optional LED underlighting.",
+      "Time Tellers — functioning wall clocks that look like the raw bar at a restaurant you can't get a reservation at. Real oyster shells, crushed ice resin, lemon wedges, optional LED underlighting. It tells time AND it's a vibe.",
   },
   {
     title: "Bolo Ties & Found-Object Jewelry",
     description:
-      "Oyster shells, weird things from the beach, whatever Lydia finds that looks wearable.",
+      "Oyster shells, beach debris, weird Florida findings — if Lydia found it on the ground and thought 'I could wear that,' it's probably already a bolo tie.",
   },
   {
-    title: "Something Weird I Haven't Thought of Yet",
+    title: "Something Completely Unhinged",
     description:
-      "Seriously. If you have a weird idea, I probably want to make it. The weirder the better.",
+      "If you have an idea that makes people go 'wait, what?' then congratulations, you found the right artist. The weirder the idea, the faster Lydia says yes.",
   },
 ];
 
 // The process steps
 const processSteps = [
-  "You fill out the form below",
-  "Lydia responds within 2–3 days (or she's in the garage with the resin)",
-  "50% deposit, timeline agreed",
-  "You receive something that confuses and delights you",
+  "You fill out the form below like the brave creative soul you are",
+  "Lydia responds within 2\u20133 days (unless she\u2019s elbow-deep in resin, in which case give her a sec)",
+  "50% deposit, timeline agreed, Squish supervises",
+  "You receive something that makes everyone who sees it go \u2018wait, is that real?\u2019",
 ];
 
 // Budget options
@@ -67,7 +67,7 @@ const budgetOptions = [
 const timelineOptions = [
   "No rush",
   "1–2 months",
-  "I need it soon, help",
+  "I need it soon, send help",
 ];
 
 export default function CommissionsPage() {
@@ -104,7 +104,7 @@ export default function CommissionsPage() {
       if (!res.ok) throw new Error("Something went wrong");
       setIsSubmitted(true);
     } catch {
-      setError("Something broke. Try again or DM @shitfriedrice on Instagram.");
+      setError("Okay something broke and it wasn't the resin this time. Try again or DM @shitfriedrice on Instagram.");
     } finally {
       setIsSubmitting(false);
     }
@@ -128,7 +128,7 @@ export default function CommissionsPage() {
       {/* Header */}
       <div className="text-center mb-12">
         <h1 className="font-[family-name:var(--font-bebas)] text-5xl sm:text-6xl md:text-7xl text-sfr-cream mb-4">
-          LET&apos;S MAKE SOMETHING DUMB TOGETHER
+          LET&apos;S MAKE SOMETHING ABSURD TOGETHER
         </h1>
         <div className="flex justify-center mb-4">
           {statusBadge[commissionStatus as keyof typeof statusBadge]}
@@ -143,7 +143,7 @@ export default function CommissionsPage() {
       {/* What she makes */}
       <section className="mb-16">
         <h2 className="font-[family-name:var(--font-bebas)] text-3xl text-sfr-cream mb-8 text-center">
-          WHAT I MAKE
+          THINGS LYDIA WILL MAKE FOR YOU
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {commissionTypes.map((type, i) => (
@@ -169,7 +169,7 @@ export default function CommissionsPage() {
       {/* The process */}
       <section className="mb-16">
         <h2 className="font-[family-name:var(--font-bebas)] text-3xl text-sfr-cream mb-8 text-center">
-          HOW IT WORKS
+          THE PROCESS (IT&apos;S CHILL)
         </h2>
         <ol className="max-w-xl mx-auto space-y-4">
           {processSteps.map((step, i) => (
@@ -193,7 +193,7 @@ export default function CommissionsPage() {
       {/* Commission form */}
       <section>
         <h2 className="font-[family-name:var(--font-bebas)] text-3xl text-sfr-cream mb-8 text-center">
-          THE FORM
+          OKAY LET&apos;S DO THIS
         </h2>
 
         {isSubmitted ? (
@@ -203,10 +203,10 @@ export default function CommissionsPage() {
             animate={{ opacity: 1, scale: 1 }}
           >
             <p className="font-[family-name:var(--font-bebas)] text-4xl text-sfr-green mb-4">
-              WE&apos;LL BE IN TOUCH.
+              OH IT&apos;S HAPPENING.
             </p>
             <p className="font-[family-name:var(--font-syne)] text-sfr-cream/60 text-lg">
-              Don&apos;t eat that.
+              Lydia&apos;s on it. Don&apos;t eat anything she makes in the meantime.
             </p>
           </motion.div>
         ) : (
@@ -220,7 +220,7 @@ export default function CommissionsPage() {
                 htmlFor="name"
                 className="block font-[family-name:var(--font-syne)] text-sfr-cream/60 text-sm mb-2"
               >
-                Name *
+                What should I call you? *
               </label>
               <input
                 type="text"
@@ -239,7 +239,7 @@ export default function CommissionsPage() {
                 htmlFor="email"
                 className="block font-[family-name:var(--font-syne)] text-sfr-cream/60 text-sm mb-2"
               >
-                Email *
+                Your email (for the important stuff) *
               </label>
               <input
                 type="email"
@@ -258,7 +258,7 @@ export default function CommissionsPage() {
                 htmlFor="description"
                 className="block font-[family-name:var(--font-syne)] text-sfr-cream/60 text-sm mb-2"
               >
-                What do you want made? *
+                Okay so what am I making you? *
               </label>
               <textarea
                 id="description"
@@ -268,7 +268,7 @@ export default function CommissionsPage() {
                 value={formState.description}
                 onChange={handleChange}
                 className="w-full bg-sfr-black border border-white/20 text-sfr-cream px-4 py-3 focus:border-sfr-green focus:outline-none transition-colors resize-y"
-                placeholder="Be as specific or as vague as you want. The weirder the better."
+                placeholder="Go off. Be specific, be vague, send a mood board, describe a dream you had. The weirder the better."
               />
             </div>
 
@@ -278,7 +278,7 @@ export default function CommissionsPage() {
                 htmlFor="budget"
                 className="block font-[family-name:var(--font-syne)] text-sfr-cream/60 text-sm mb-2"
               >
-                Rough budget range
+                What&apos;s the budget situation?
               </label>
               <select
                 id="budget"
@@ -302,7 +302,7 @@ export default function CommissionsPage() {
                 htmlFor="timeline"
                 className="block font-[family-name:var(--font-syne)] text-sfr-cream/60 text-sm mb-2"
               >
-                Rough timeline
+                How soon do you need this in your life?
               </label>
               <select
                 id="timeline"
@@ -326,7 +326,7 @@ export default function CommissionsPage() {
                 htmlFor="howFound"
                 className="block font-[family-name:var(--font-syne)] text-sfr-cream/60 text-sm mb-2"
               >
-                How did you find Shitfriedrice?
+                How did you even find this place?
               </label>
               <input
                 type="text"
@@ -335,7 +335,7 @@ export default function CommissionsPage() {
                 value={formState.howFound}
                 onChange={handleChange}
                 className="w-full bg-sfr-black border border-white/20 text-sfr-cream px-4 py-3 focus:border-sfr-green focus:outline-none transition-colors"
-                placeholder="Instagram, the Super Bowl, a friend, a flea market..."
+                placeholder="Instagram, the Super Bowl, a corgi, a friend with taste, a fever dream..."
               />
             </div>
 
@@ -345,7 +345,7 @@ export default function CommissionsPage() {
                 htmlFor="anythingElse"
                 className="block font-[family-name:var(--font-syne)] text-sfr-cream/60 text-sm mb-2"
               >
-                Anything else?
+                Anything else Lydia should know?
               </label>
               <textarea
                 id="anythingElse"
@@ -371,7 +371,7 @@ export default function CommissionsPage() {
               disabled={isSubmitting}
               className="w-full"
             >
-              {isSubmitting ? "Sending..." : "Send it"}
+              {isSubmitting ? "Sending your vision into the void..." : "Send it to Lydia"}
             </Button>
           </form>
         )}

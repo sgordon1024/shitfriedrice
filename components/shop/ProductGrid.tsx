@@ -139,7 +139,7 @@ export default function ProductGrid({ products }: ProductGridProps) {
 
       {filtered.length === 0 ? (
         <p className="text-center text-sfr-cream/50 py-20 font-[family-name:var(--font-syne)]">
-          Nothing in this category yet. Check back soon.
+          Literally nothing here yet. Lydia is probably in the garage making more. Check back before she runs out of resin.
         </p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

@@ -40,8 +40,8 @@ export default function Footer() {
               SHITFRIEDRICE
             </p>
             <p className="text-sfr-cream/50 text-sm leading-relaxed">
-              Handmade art from found, discarded, and unexpected materials.
-              Based in Florida. Powered by resin and bad ideas.
+              Art made from garbage, treasures, and the stuff in between.
+              Based in Florida. Fueled by resin fumes and audacity.
             </p>
           </div>
 
@@ -91,7 +91,7 @@ export default function Footer() {
                   href="/commissions"
                   className="text-sfr-cream/60 hover:text-sfr-green transition-colors text-sm"
                 >
-                  Commission something weird
+                  Make me make you something weird
                 </Link>
               </li>
             </ul>
@@ -102,8 +102,8 @@ export default function Footer() {
 
         <div className="mt-10 text-center">
           <p className="text-sfr-cream/30 text-xs font-[family-name:var(--font-syne-mono)]">
-            &copy; {new Date().getFullYear()} Shitfriedrice. All art is
-            handmade. All condiments are fake. Probably.
+            &copy; {new Date().getFullYear()} Shitfriedrice. Everything is handmade.
+            Nothing is edible. Squish runs the company. Lydia just works here.
           </p>
         </div>
       </div>

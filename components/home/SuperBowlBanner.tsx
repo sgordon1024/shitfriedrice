@@ -36,16 +36,16 @@ export default function SuperBowlBanner() {
             transition={{ duration: 0.6 }}
           >
             <p className="font-[family-name:var(--font-syne-mono)] text-sfr-red text-xs uppercase tracking-widest mb-4">
-              February 2026 — Super Bowl LX
+              Feb 2026 — Super Bowl LX — Yes, Really
             </p>
             <h2 className="font-[family-name:var(--font-bebas)] text-4xl sm:text-5xl md:text-6xl leading-[0.95] mb-6">
-              Bad Bunny performed the most-watched halftime show in history.
-              <span className="text-sfr-red"> The tacos on that stage? Lydia made those.</span>
+              So Bad Bunny did the most-watched halftime show of all time, right?
+              <span className="text-sfr-red"> And those tacos on stage? Yeah. Lydia made those. From her garage. In Florida.</span>
             </h2>
             <p className="font-[family-name:var(--font-syne)] text-sfr-black/70 text-lg mb-4 leading-relaxed">
-              The fake tacos and tortillas for Villa&apos;s Tacos&apos; taco stand were
-              sculpted by hand right here. You couldn&apos;t eat them. 4.157 billion
-              people watched them anyway.
+              Villa&apos;s Tacos needed fake tacos for their halftime taco stand. Lydia
+              sculpted every single one by hand. You absolutely could not eat them.
+              4.157 billion people watched them anyway and honestly? Iconic behavior.
             </p>
 
             {/* Big stat callout */}
@@ -54,7 +54,7 @@ export default function SuperBowlBanner() {
                 4.157B
               </p>
               <p className="font-[family-name:var(--font-syne-mono)] text-xs text-sfr-black/60 uppercase tracking-wider">
-                Views in 24 hours. Our fake food was there.
+                Eyeballs in 24 hours. On fake tacos. From a garage.
               </p>
             </div>
 
@@ -64,7 +64,7 @@ export default function SuperBowlBanner() {
                 variant="primary"
                 className="!bg-sfr-red !text-sfr-cream hover:!bg-sfr-red/80"
               >
-                See the work
+                Show me the tacos
               </Button>
             </div>
           </motion.div>

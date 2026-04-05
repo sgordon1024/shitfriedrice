@@ -29,10 +29,10 @@ export default function GalleryPage() {
     <main id="main-content" className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       <div className="text-center mb-12">
         <h1 className="font-[family-name:var(--font-bebas)] text-5xl sm:text-6xl md:text-7xl text-sfr-cream mb-3">
-          WEIRD THINGS I&apos;VE MADE
+          STUFF THAT LEFT MY GARAGE
         </h1>
         <p className="font-[family-name:var(--font-syne)] text-sfr-cream/50 text-lg">
-          Sculptures, magnets, lamps, fake food, and at least one thing that ended up on national television.
+          Sculptures, magnets, lamps, fake food, and at least one thing that ended up in front of 4.157 billion people. No big deal. Huge deal actually.
         </p>
       </div>
 

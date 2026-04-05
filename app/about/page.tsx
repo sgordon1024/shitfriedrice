@@ -43,22 +43,22 @@ const materials = [
 
 const funFacts = [
   {
-    label: "The namesake piece",
+    label: "The piece that started it all",
     value:
-      'A hyperrealistic fake fried rice bowl — pink ceramic, sculpted rice, sausage, peas, and a real wooden spoon. Wall-mounted. The piece is called "Shit Fried Rice" and it\'s how the whole business got its name.',
+      'A hyperrealistic fake fried rice bowl — pink ceramic, sculpted rice, sausage, peas, and a real wooden spoon just vibing in there. Wall-mounted. The piece is called "Shit Fried Rice" and that\'s literally how this whole business got its name. You can\'t make this up. Well, Lydia can.',
   },
   {
-    label: "Most-watched work",
+    label: "Most-watched work (casual 4 billion views)",
     value:
-      "Fake blue corn tortillas, birria tacos, consommé cups, and all the fixings for Villa's Tacos at Bad Bunny's Super Bowl LX halftime show. 4.157 billion views.",
+      "Fake blue corn tortillas, birria tacos, consomm\u00e9 cups, and all the fixings for Villa's Tacos at Bad Bunny's Super Bowl LX halftime show. 4.157 billion views in 24 hours. From a garage in Florida. The math is mathing.",
   },
   {
     label: "Favorite sauce packet",
-    value: "Taco Bell Fire. Non-negotiable.",
+    value: "Taco Bell Fire. This is not up for debate. Do not come for her on this.",
   },
   {
     label: "Weirdest commission",
-    value: "TBD — placeholder for when Lydia picks one.",
+    value: "TBD \u2014 placeholder for when Lydia picks one.",
   },
   {
     label: "Studio soundtrack",
@@ -71,7 +71,7 @@ export default function AboutPage() {
     <main id="main-content" className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
       {/* Header */}
       <h1 className="font-[family-name:var(--font-bebas)] text-5xl sm:text-6xl md:text-7xl text-sfr-cream text-center mb-12">
-        WHO EVEN IS SHITFRIEDRICE?
+        WHO IS THIS PERSON AND WHY IS SHE LIKE THIS
       </h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 mb-20">
@@ -91,29 +91,32 @@ export default function AboutPage() {
         {/* Bio */}
         <div className="flex flex-col justify-center space-y-6">
           <p className="text-sfr-cream/80 text-lg leading-relaxed">
-            I&apos;m Lydia. I live in Florida with too many lava lamps and a lab fridge
-            covered in fake condiment magnets. I started making things for friends, then
-            made fake tacos for a taco stand, and somehow that taco stand ended up in the
-            Bad Bunny Super Bowl halftime show.
+            I&apos;m Lydia. I live in Florida with a corgi named Squish, way too many lava
+            lamps, and a lab fridge that is absolutely covered in fake condiment magnets. I
+            started making stuff for friends because I physically could not stop, then I made
+            fake tacos for a taco stand, and then THAT TACO STAND ended up in Bad Bunny&apos;s
+            Super Bowl halftime show. I don&apos;t know how I got here but I&apos;m not leaving.
           </p>
           <p className="text-sfr-cream/80 text-lg leading-relaxed">
-            Shitfriedrice is what I call my business. It&apos;s named after a sculpture I
-            made — a hyperrealistic fake bowl of fried rice, wall-mounted, pink ceramic
-            bowl with a wooden spoon sticking out of it. That piece is the mascot. It is
-            what it is.
+            Shitfriedrice is the name of this whole operation and yes I know it&apos;s a lot.
+            It&apos;s named after a sculpture I made — a hyperrealistic fake bowl of fried rice
+            mounted on a wall in a pink ceramic bowl with a real wooden spoon sticking out
+            of it. That piece IS the brand. I don&apos;t make the rules. Actually I do. It&apos;s
+            my company.
           </p>
           <p className="text-sfr-cream/80 text-lg leading-relaxed">
-            I make art out of stuff nobody wanted — fast food trash, floppy disks, broken
-            tiles, oyster shells, soda cans, matchbooks. Everything gets elevated. The
-            resin work is flawless. The concept is unhinged. That&apos;s the point.
+            I make art out of stuff people throw away — fast food packaging, floppy disks,
+            broken tiles, oyster shells, soda cans, matchbooks, whatever the ocean coughs
+            up in Florida. Everything gets elevated. The resin work? Flawless. The concept?
+            Completely bananas. That&apos;s the whole entire point and I will not apologize.
           </p>
 
           <div className="flex flex-wrap gap-3 pt-2">
             <Button href="/shop" variant="primary">
-              Shop the weird stuff
+              Go see the weird stuff
             </Button>
             <Button href="/commissions" variant="secondary">
-              Commission something
+              Make me make you something
             </Button>
           </div>
         </div>
@@ -122,7 +125,7 @@ export default function AboutPage() {
       {/* Materials */}
       <section className="mb-20">
         <h2 className="font-[family-name:var(--font-bebas)] text-3xl text-sfr-cream mb-8 text-center">
-          MATERIALS I&apos;VE WORKED WITH
+          STUFF LYDIA HAS GOTTEN HER HANDS ON
         </h2>
         <div className="flex flex-wrap gap-2 justify-center">
           {materials.map((material) => (
@@ -139,7 +142,7 @@ export default function AboutPage() {
       {/* Fun facts */}
       <section className="mb-20">
         <h2 className="font-[family-name:var(--font-bebas)] text-3xl text-sfr-cream mb-8 text-center">
-          FUN FACTS
+          LORE
         </h2>
         <div className="space-y-4 max-w-2xl mx-auto">
           {funFacts.map((fact) => (
@@ -158,7 +161,7 @@ export default function AboutPage() {
       {/* Links */}
       <section className="text-center">
         <h2 className="font-[family-name:var(--font-bebas)] text-3xl text-sfr-cream mb-6">
-          FIND ME
+          COME FIND ME
         </h2>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
@@ -170,7 +173,7 @@ export default function AboutPage() {
             Instagram @shitfriedrice
           </a>
           <Button href="/commissions" variant="secondary">
-            Commission something weird
+            Commission something ridiculous
           </Button>
         </div>
       </section>

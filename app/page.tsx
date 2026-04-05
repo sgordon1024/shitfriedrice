@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Shitfriedrice — Art Made from Stuff Nobody Wanted",
     description:
-      "Handmade art from found materials. Yes, we made the tacos for Bad Bunny's Super Bowl halftime show.",
+      "Handmade art from found materials. Yes, Lydia made the tacos for Bad Bunny's Super Bowl halftime show.",
   },
 };
 
@@ -131,7 +131,7 @@ export default function HomePage() {
       {/* Instagram Grid with real photos */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
         <h2 className="font-[family-name:var(--font-bebas)] text-4xl sm:text-5xl text-sfr-cream mb-4">
-          FOLLOW ALONG
+          STALK ME (RESPECTFULLY)
         </h2>
         <a
           href="https://instagram.com/shitfriedrice"

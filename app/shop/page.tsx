@@ -28,10 +28,10 @@ export default function ShopPage() {
     <main id="main-content" className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       <div className="text-center mb-12">
         <h1 className="font-[family-name:var(--font-bebas)] text-5xl sm:text-6xl md:text-7xl text-sfr-cream mb-3">
-          THE GOOD STUFF
+          THE CHAOTIC INVENTORY
         </h1>
         <p className="font-[family-name:var(--font-syne)] text-sfr-cream/50 text-lg">
-          Handmade. One of a kind. Probably resin.
+          Handmade. Absurd. Definitely resin. Your apartment needs this energy.
         </p>
       </div>
 

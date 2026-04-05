@@ -36,18 +36,18 @@ export default function SuperBowlCallout() {
         {/* Text */}
         <div className="p-8 md:p-12 flex flex-col justify-center bg-sfr-black">
           <p className="font-[family-name:var(--font-syne-mono)] text-sfr-red text-xs uppercase tracking-widest mb-3">
-            Featured Work — Super Bowl LX, 2026
+            Featured Work — Super Bowl LX, 2026 — The Big One
           </p>
           <h2 className="font-[family-name:var(--font-bebas)] text-3xl sm:text-4xl md:text-5xl text-sfr-cream mb-4">
-            THE SUPER BOWL TACOS
+            THE TACOS THAT BROKE THE INTERNET
           </h2>
           <p className="text-sfr-cream/60 leading-relaxed mb-4">
-            Hyperrealistic prop food for Villa&apos;s Tacos&apos; taco stand at Bad Bunny&apos;s
-            Super Bowl LX halftime show — blue corn tortillas with authentic char marks and
-            black spots, birria-style tacos with shredded filling, broth/consomm&eacute; cups,
-            salsa cups, radish slices, lime wedges, and scallions. All sculpted fake food,
-            indistinguishable from real at broadcast distance. 4.157 billion people watched
-            them in the first 24 hours. Nobody ate them.
+            So Villa&apos;s Tacos needed a taco stand for Bad Bunny&apos;s Super Bowl LX halftime
+            show and Lydia was like &quot;say less.&quot; Blue corn tortillas with char marks so real
+            you can almost smell them, birria tacos with shredded filling, consomm&eacute; cups,
+            salsa cups, radish slices, lime wedges, scallions — the whole spread. All fake. All
+            sculpted by hand in a Florida garage. 4.157 billion people watched these in 24 hours
+            and not a single one of them got to take a bite. Devastating honestly.
           </p>
           <p className="font-[family-name:var(--font-syne-mono)] text-sfr-silver text-xs">
             Materials: Foam, resin, acrylic paint, pigment, clear coat
