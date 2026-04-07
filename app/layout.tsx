@@ -18,9 +18,6 @@ import {
   Cormorant_Garamond,
 } from "next/font/google";
 import "@/styles/globals.css";
-import Nav from "@/components/layout/Nav";
-import Footer from "@/components/layout/Footer";
-import CartDrawer from "@/components/layout/CartDrawer";
 
 // --- Load all the fonts (zero FOUT via next/font) ---
 
@@ -112,22 +109,7 @@ export default function RootLayout({
       className={`${bebasNeue.variable} ${bigShoulders.variable} ${syne.variable} ${inter.variable} ${syneMono.variable} ${imFellEnglish.variable} ${cormorantGaramond.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-sfr-black text-sfr-cream font-[family-name:var(--font-inter)]">
-        {/* Skip to content — first focusable element for screen readers */}
-        <a href="#main-content" className="skip-to-content">
-          Skip to content
-        </a>
-
-        {/* Navigation */}
-        <Nav />
-
-        {/* Cart drawer (slides in from right) */}
-        <CartDrawer />
-
-        {/* Page content */}
-        <div className="flex-1">{children}</div>
-
-        {/* Footer */}
-        <Footer />
+        {children}
       </body>
     </html>
   );
