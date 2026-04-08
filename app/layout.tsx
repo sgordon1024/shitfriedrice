@@ -73,7 +73,7 @@ const cormorantGaramond = Cormorant_Garamond({
 
 export const metadata: Metadata = {
   title: {
-    default: "Shitfriedrice — Art Made from Stuff Nobody Wanted",
+    default: "Shitfriedrice — Art That Gives Things a Second Life",
     template: "%s — Shitfriedrice",
   },
   description:
